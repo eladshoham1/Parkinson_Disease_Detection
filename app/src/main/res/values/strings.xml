@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Parkinson Detection</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="spiral_test">Spiral Test</string>
+    <string name="classify">Classify</string>
+    <string name="result">Result</string>
+    <string name="full_name">Full Name</string>
+    <string name="patient">Patient</string>
+    <string name="doctor">Doctor</string>
+    <string name="profile">Profile</string>
+    <string name="test">Test</string>
+    <string name="results">Results</string>
+    <string name="set_doctor">Set Doctor</string>
+    <string name="to_menu">To Menu</string>
+</resources>

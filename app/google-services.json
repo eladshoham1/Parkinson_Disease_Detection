@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "671678601108",
+    "project_id": "parkinson-disease-detection",
+    "storage_bucket": "parkinson-disease-detection.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671678601108:android:23c4d2456834b874a56181",
+        "android_client_info": {
+          "package_name": "com.example.parkinson_disease_detection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671678601108-k8f9817cfm5v4ocdisqpak02n442uekf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACt1Y3H2msPJJmCDB164s_Qon2ehihoaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671678601108-k8f9817cfm5v4ocdisqpak02n442uekf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

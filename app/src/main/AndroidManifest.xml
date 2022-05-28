@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.parkinson_disease_detection">
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Parkinson_Disease_Detection">
+        <activity
+            android:name=".activities.Activity_Result"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Patients_Results"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Sign_Up"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Sign_In"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Patient_Menu"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Doctor_Menu"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity_Main"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

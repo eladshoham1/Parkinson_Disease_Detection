@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.Activity_Sign_Up">
+
+    <EditText
+        android:id="@+id/signUp_EDT_fullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:hint="@string/full_name" />
+
+    <EditText
+        android:id="@+id/signUp_EDT_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUp_EDT_fullName"
+        android:layout_marginTop="80dp"
+        android:hint="@string/email" />
+
+    <EditText
+        android:id="@+id/signUp_EDT_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUp_EDT_email"
+        android:inputType="textPassword"
+        android:layout_marginTop="80dp"
+        android:hint="@string/password" />
+
+    <RadioGroup
+        android:id="@+id/signUp_GRP_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUp_EDT_password"
+        android:layout_marginTop="80dp"
+        android:checkedButton="@+id/signUp_BTN_patient">
+
+        <RadioButton
+            android:id="@+id/signUp_BTN_patient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/patient"/>
+
+        <RadioButton
+            android:id="@+id/signUp_BTN_doctor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/doctor"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/signUp_BTN_signUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUp_GRP_type"
+        android:layout_marginTop="80dp"
+        android:text="@string/sign_up" />
+
+</RelativeLayout>
