@@ -106,6 +106,8 @@ public class Fragment_Patient_Test extends Fragment {
         canvas.drawColor(Color.WHITE);
         test_DRW_spiral.draw(canvas);
 
+        Classifier classifier = new Classifier(test_IMG_spiral, points);
+
         ref.putFile(getImageUri(bitmap)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -127,11 +129,6 @@ public class Fragment_Patient_Test extends Fragment {
                 });
             }
         });
-        /*Classifier classifier = new Classifier();
-        for (int i = 0; i < points.size(); i++) {
-            Log.d("check2", "X: " + points.get(i).getX() + " Y: " + points.get(i).getY() + " time: " + points.get(i).getTime());
-        }
-        Log.d("check2", "size: " + points.size());*/
     }
 
     private void moveToResult(Result result) {
