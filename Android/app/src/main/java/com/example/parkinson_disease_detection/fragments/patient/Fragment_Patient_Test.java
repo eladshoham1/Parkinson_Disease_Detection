@@ -19,6 +19,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.parkinson_disease_detection.R;
 import com.example.parkinson_disease_detection.activities.Activity_Result;
 import com.example.parkinson_disease_detection.models.Classifier;
@@ -106,9 +112,23 @@ public class Fragment_Patient_Test extends Fragment {
         canvas.drawColor(Color.WHITE);
         test_DRW_spiral.draw(canvas);
 
-        Classifier classifier = new Classifier(test_IMG_spiral, points);
+        //Classifier classifier = new Classifier(test_IMG_spiral, points);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        String url = "http://172.0.0.1:5000/predict/?id=2F6lpkn6QFmaYFY0VGZUj1IR9XKg02&name=2F1653697254580&token=780933e2-b1d5-4fa1-a4cc-e9aab9d75091";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("check2", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("check2", error.getMessage());
+            }
+        });
+        requestQueue.add(stringRequest);
 
-        ref.putFile(getImageUri(bitmap)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        /*ref.putFile(getImageUri(bitmap)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -128,7 +148,7 @@ public class Fragment_Patient_Test extends Fragment {
                     }
                 });
             }
-        });
+        });*/
     }
 
     private void moveToResult(Result result) {
