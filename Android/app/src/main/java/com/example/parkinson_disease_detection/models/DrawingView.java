@@ -21,7 +21,7 @@ public class DrawingView extends View {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = (int) R.color.paint_color;
+    private int paintColor = (int) Color.BLACK;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -35,13 +35,12 @@ public class DrawingView extends View {
 
     //setup drawing
     private void setupDrawing(){
-
         //prepare for drawing and setup paint stroke properties
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
         drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(15.0f);
+        drawPaint.setStrokeWidth(4.0f);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -88,7 +87,6 @@ public class DrawingView extends View {
         //redraw
         invalidate();
         return true;
-
     }
 
     //update color

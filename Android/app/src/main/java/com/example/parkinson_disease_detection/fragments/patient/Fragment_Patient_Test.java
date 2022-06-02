@@ -10,8 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +25,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.parkinson_disease_detection.R;
 import com.example.parkinson_disease_detection.activities.Activity_Result;
-import com.example.parkinson_disease_detection.models.Classifier;
 import com.example.parkinson_disease_detection.models.DrawingView;
 import com.example.parkinson_disease_detection.models.Patient;
 import com.example.parkinson_disease_detection.models.Point;
 import com.example.parkinson_disease_detection.models.Result;
 import com.example.parkinson_disease_detection.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
@@ -74,9 +70,8 @@ public class Fragment_Patient_Test extends Fragment {
     }
 
     private void initViews() {
-        test_BTN_classify.setOnClickListener(v -> classify());
-
         points = new ArrayList<>();
+        test_BTN_classify.setOnClickListener(v -> classify());
         test_DRW_spiral.setOnTouchListener((v, event) -> {
             Point point = new Point(event.getX(), event.getY(), System.currentTimeMillis());
             points.add(point);
@@ -93,62 +88,74 @@ public class Fragment_Patient_Test extends Fragment {
         }
     }
 
-    private Uri getImageUri(Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(this.getContext().getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
+    public byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private String convertUriToUrl(String uri) {
+        String[] firstParts = uri.split("/");
+        String[] secondParts = firstParts[7].split("%");
+        String[] thirdParts = secondParts[2].split("alt=");
+        String[] fourthParts = thirdParts[1].split("=");
+        String id = secondParts[1];
+        String name = thirdParts[0].substring(0, thirdParts[0].length() - 1);
+        String token = fourthParts[1];
+        return "http://10.0.2.2:5000/predict/?id=" + id + "&name=" + name + "&token=" + token;
     }
 
     private void classify() {
         test_PRB_loading.setVisibility(View.VISIBLE);
         test_BTN_classify.setVisibility(View.GONE);
-        long currentTime = System.currentTimeMillis();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReference();
-        StorageReference ref = storageReference.child(Constants.IMAGES_DB).child(patient.getUid()).child(String.valueOf(currentTime));
         Bitmap bitmap = Bitmap.createBitmap(test_DRW_spiral.getWidth(), test_DRW_spiral.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawColor(Color.WHITE);
         test_DRW_spiral.draw(canvas);
+        saveSpiralImageInDB(getBytes(bitmap));
+    }
 
-        //Classifier classifier = new Classifier(test_IMG_spiral, points);
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        String url = "http://172.0.0.1:5000/predict/?id=2F6lpkn6QFmaYFY0VGZUj1IR9XKg02&name=2F1653697254580&token=780933e2-b1d5-4fa1-a4cc-e9aab9d75091";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("check2", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("check2", error.getMessage());
-            }
-        });
-        requestQueue.add(stringRequest);
-
-        /*ref.putFile(getImageUri(bitmap)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+    private void saveSpiralImageInDB(byte[] data) {
+        long currentTime = System.currentTimeMillis();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference();
+        StorageReference ref = storageReference.child(Constants.IMAGES_DB).child(patient.getUid()).child(String.valueOf(currentTime));
+        ref.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
-                            Result result = new Result(patient.getUid(), patient.getFullName(), currentTime , "OK", task.getResult().toString());
-                            FirebaseDatabase.getInstance().getReference(Constants.RESULTS_DB).child(patient.getUid()).child(String.valueOf(result.getTime())).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        moveToResult(result);
-                                    }
-                                }
-                            });
+                            setResult(task.getResult().toString(), currentTime);
                         }
                     }
                 });
             }
-        });*/
+        });
+    }
+
+    private void setResult(String uri, long currentTime) {
+        String url = convertUriToUrl(uri);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Result result = new Result(patient.getUid(), patient.getFullName(), currentTime, response.substring(1, response.length() - 2), uri);
+                FirebaseDatabase.getInstance().getReference(Constants.RESULTS_DB).child(patient.getUid()).child(String.valueOf(result.getTime())).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            moveToResult(result);
+                        }
+                    }
+                });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {}
+        });
+        requestQueue.add(stringRequest);
     }
 
     private void moveToResult(Result result) {

@@ -17,7 +17,6 @@ class Classifier():
         self.load_image_to_file()
 
     def load_image_to_file(self) -> None:
-        print('uri:',self.__uri)
         response = requests.get(self.__uri)
         image = response.content
         with open(self.IMAGE_PATH, 'wb') as image_file:
@@ -39,4 +38,5 @@ class Classifier():
         labels = ['Healthy', 'Parkinson']
         image = self.prepare_image()
         prediction = self.__model.predict(image)
+        print(prediction[0])
         return labels[np.argmax(prediction[0], axis=0)]

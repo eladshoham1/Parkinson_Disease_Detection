@@ -24,8 +24,10 @@
 
     <ImageView
         android:id="@+id/result_IMG_spiral"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="512px"
+        android:layout_height="512px"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
         android:layout_below="@+id/result_LBL_result" />
 
     <Button

@@ -9,18 +9,19 @@
     <FrameLayout
         android:id="@+id/test_LAY_spiral"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <ImageView
             android:id="@+id/test_IMG_spiral"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="512px"
+            android:layout_height="512px"
             android:src="@drawable/spiral" />
 
         <com.example.parkinson_disease_detection.models.DrawingView
             android:id="@+id/test_DRW_spiral"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="512px"
+            android:layout_height="512px" />
 
     </FrameLayout>
 
