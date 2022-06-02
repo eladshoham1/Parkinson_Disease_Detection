@@ -2,31 +2,30 @@ package com.example.parkinson_disease_detection.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkinson_disease_detection.R;
-import com.example.parkinson_disease_detection.fragments.doctor.Fragment_Doctor_Profile;
 import com.example.parkinson_disease_detection.fragments.doctor.Fragment_Doctor_Results;
 import com.example.parkinson_disease_detection.models.Doctor;
 import com.example.parkinson_disease_detection.utils.Constants;
 import com.example.parkinson_disease_detection.utils.MySP;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 public class Activity_Doctor_Menu extends AppCompatActivity {
-    private BottomNavigationView menu_doctor_NVG_bottomNavigation;
-    private Fragment selectedFragment;
+    private TextView doctor_menu_LBL_doctorName;
+    private ImageView doctor_menu_IMG_signOut;
+    private Fragment_Doctor_Results fragment_doctor_results;
 
     private Doctor doctor;
 
@@ -40,7 +39,8 @@ public class Activity_Doctor_Menu extends AppCompatActivity {
     }
 
     private void findViews() {
-        menu_doctor_NVG_bottomNavigation = findViewById(R.id.menu_doctor_NVG_bottomNavigation);
+        doctor_menu_LBL_doctorName = findViewById(R.id.doctor_menu_LBL_doctorName);
+        doctor_menu_IMG_signOut = findViewById(R.id.doctor_menu_IMG_signOut);
     }
 
     private void setDoctor() {
@@ -70,13 +70,19 @@ public class Activity_Doctor_Menu extends AppCompatActivity {
     }
 
     private void initViews() {
-        replaceFragment(R.id.menu_doctor_LBL_profile);
-
-        menu_doctor_NVG_bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        doctor_menu_LBL_doctorName.setText("Welcome " + doctor.getFullName());
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.DOCTOR, new Gson().toJson(doctor));
+        fragment_doctor_results = new Fragment_Doctor_Results();
+        fragment_doctor_results.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.doctor_menu_FRG_results, fragment_doctor_results)
+                .commit();
+        doctor_menu_IMG_signOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                replaceFragment(item.getItemId());
-                return true;
+            public void onClick(View v) {
+                signOut();
             }
         });
     }
@@ -91,38 +97,6 @@ public class Activity_Doctor_Menu extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void replaceFragment(int id) {
-        int itemId = 0;
-
-        switch (id) {
-            case R.id.menu_doctor_LBL_profile:
-                itemId = R.id.menu_doctor_LBL_profile;
-                selectedFragment = new Fragment_Doctor_Profile();
-                break;
-            case R.id.menu_doctor_LBL_results:
-                itemId = R.id.menu_doctor_LBL_results;
-                selectedFragment = new Fragment_Doctor_Results();
-                break;
-            case R.id.menu_doctor_LBL_signOut:
-                signOut();
-                break;
-        }
-
-        if (itemId != 0) {
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.DOCTOR, new Gson().toJson(doctor));
-            initFragments(selectedFragment, bundle);
-        }
-    }
-
-    private void initFragments(Fragment selectedFragment, Bundle bundle) {
-        selectedFragment.setArguments(bundle);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.menu_doctor_FRG_selectedFragment, selectedFragment)
-                .commit();
     }
 
     private void signOut() {

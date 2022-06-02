@@ -38,5 +38,4 @@ class Classifier():
         labels = ['Healthy', 'Parkinson']
         image = self.prepare_image()
         prediction = self.__model.predict(image)
-        print(prediction[0])
         return labels[np.argmax(prediction[0], axis=0)]

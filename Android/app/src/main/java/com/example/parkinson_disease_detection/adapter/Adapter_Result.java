@@ -1,6 +1,7 @@
 package com.example.parkinson_disease_detection.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class Adapter_Result extends RecyclerView.Adapter<Adapter_Result.MyViewHo
         holder.list_results_LBL_fullName.setText(result.getName());
         holder.list_results_LBL_date.setText(MyDate.makeDateString(result.getTime()));
         holder.list_results_LBL_result.setText(result.getResult());
+        holder.list_results_LBL_result.setTextColor(result.getResult().equals("Healthy") ? Color.GREEN : Color.RED);
     }
 
     @Override

@@ -7,18 +7,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/white"
     tools:context=".activities.Activity_Doctor_Menu">
 
-    <FrameLayout
-        android:id="@+id/menu_doctor_FRG_selectedFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_doctor_NVG_bottomNavigation"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/doctor_menu_LBL_doctorName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_doctor_bottom_navigation" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:textSize="26sp"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/doctor_menu_IMG_signOut"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_sign_out" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/doctor_menu_FRG_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import static com.example.parkinson_disease_detection.utils.MyDate.makeDateStrin
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,8 +49,9 @@ public class Activity_Result extends AppCompatActivity {
     }
 
     private void initViews() {
-        result_LBL_date.setText("Date: " + makeDateString(result.getTime()));
-        result_LBL_result.setText("Result: " + result.getResult());
+        result_LBL_date.setText(makeDateString(result.getTime()));
+        result_LBL_result.setText(result.getResult());
+        result_LBL_result.setTextColor(result.getResult().equals("Healthy") ? Color.GREEN : Color.RED);
         setSpiralImage();
 
         result_BTN_toMenu.setOnClickListener(new View.OnClickListener() {
