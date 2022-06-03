@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.parkinson_disease_detection.R;
 import com.example.parkinson_disease_detection.models.User;
@@ -13,8 +13,8 @@ import com.example.parkinson_disease_detection.utils.Constants;
 import com.example.parkinson_disease_detection.utils.MySP;
 
 public class Activity_Main extends AppCompatActivity {
-    private Button main_BTN_signIn;
-    private Button main_BTN_signUp;
+    private TextView main_LBL_signIn;
+    private TextView main_LBL_signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +33,19 @@ public class Activity_Main extends AppCompatActivity {
     }
 
     private void findViews() {
-        main_BTN_signIn = findViewById(R.id.main_BTN_signIn);
-        main_BTN_signUp = findViewById(R.id.main_BTN_signUp);
+        main_LBL_signIn = findViewById(R.id.main_LBL_signIn);
+        main_LBL_signUp = findViewById(R.id.main_LBL_signUp);
     }
 
     private void initViews() {
-        main_BTN_signIn.setOnClickListener(new View.OnClickListener() {
+        main_LBL_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
 
-        main_BTN_signUp.setOnClickListener(new View.OnClickListener() {
+        main_LBL_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
@@ -66,7 +66,6 @@ public class Activity_Main extends AppCompatActivity {
             finish();
         }
     }
-
 
     private void signIn() {
         Intent intent = new Intent(this, Activity_Sign_In.class);

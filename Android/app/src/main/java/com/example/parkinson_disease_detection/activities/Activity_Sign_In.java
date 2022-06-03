@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkinson_disease_detection.R;
@@ -29,7 +30,8 @@ import com.google.gson.Gson;
 public class Activity_Sign_In extends AppCompatActivity {
     private EditText signIn_EDT_email;
     private EditText signIn_EDT_password;
-    private Button signIn_BTN_signIn;
+    private TextView signIn_LBL_signIn;
+    private TextView signIn_LBL_noAccountSignup;
 
     private FirebaseAuth firebaseAuth;
 
@@ -47,16 +49,29 @@ public class Activity_Sign_In extends AppCompatActivity {
     private void findViews() {
         signIn_EDT_email = findViewById(R.id.signIn_EDT_email);
         signIn_EDT_password = findViewById(R.id.signIn_EDT_password);
-        signIn_BTN_signIn = findViewById(R.id.signIn_BTN_signIn);
+        signIn_LBL_signIn = findViewById(R.id.signIn_LBL_signIn);
+        signIn_LBL_noAccountSignup = findViewById(R.id.signIn_LBL_noAccountSignup);
     }
 
     private void initViews() {
-        signIn_BTN_signIn.setOnClickListener(new View.OnClickListener() {
+        signIn_LBL_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
+        signIn_LBL_noAccountSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToSignup();
+            }
+        });
+    }
+
+    private void moveToSignup() {
+        Intent intent = new Intent(this, Activity_Sign_Up.class);
+        startActivity(intent);
+        finish();
     }
 
     private void signIn() {

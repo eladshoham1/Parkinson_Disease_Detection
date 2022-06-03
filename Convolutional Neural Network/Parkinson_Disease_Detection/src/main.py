@@ -5,6 +5,7 @@ from classifier import Classifier
 app = Flask(__name__)
 api = Api(app)
 
+
 class Predict(Resource):
     def get(self) -> str:
         id = request.args.get('id')
@@ -13,6 +14,7 @@ class Predict(Resource):
         classifier = Classifier(id, name, token)
         result = classifier.predict()
         return result
+
 
 api.add_resource(Predict, '/predict/')
 

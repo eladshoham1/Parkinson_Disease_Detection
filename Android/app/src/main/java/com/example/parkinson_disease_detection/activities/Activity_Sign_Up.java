@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkinson_disease_detection.R;
@@ -34,8 +34,8 @@ public class Activity_Sign_Up extends AppCompatActivity {
     private EditText signUp_EDT_password;
     private RadioGroup signUp_GRP_type;
     private RadioButton signUp_BTN_patient;
-    private RadioButton signUp_BTN_doctor;
-    private Button signUp_BTN_signUp;
+    private TextView signUp_LBL_signUp;
+    private TextView signUp_LBL_haveAccountSignIn;
 
     private FirebaseAuth firebaseAuth;
 
@@ -56,17 +56,29 @@ public class Activity_Sign_Up extends AppCompatActivity {
         signUp_EDT_password = findViewById(R.id.signUp_EDT_password);
         signUp_GRP_type = findViewById(R.id.signUp_GRP_type);
         signUp_BTN_patient = findViewById(R.id.signUp_BTN_patient);
-        signUp_BTN_doctor = findViewById(R.id.signUp_BTN_doctor);
-        signUp_BTN_signUp = findViewById(R.id.signUp_BTN_signUp);
+        signUp_LBL_signUp = findViewById(R.id.signUp_LBL_signUp);
+        signUp_LBL_haveAccountSignIn = findViewById(R.id.signUp_LBL_haveAccountSignIn);
     }
 
     private void initViews() {
-        signUp_BTN_signUp.setOnClickListener(new View.OnClickListener() {
+        signUp_LBL_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
         });
+        signUp_LBL_haveAccountSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToSignIn();
+            }
+        });
+    }
+
+    private void moveToSignIn() {
+        Intent intent = new Intent(this, Activity_Sign_In.class);
+        startActivity(intent);
+        finish();
     }
 
     private void signUp() {
@@ -128,10 +140,4 @@ public class Activity_Sign_Up extends AppCompatActivity {
             finish();
         }
     }
-
-    /*private void moveToMenu() {
-        Intent intent = new Intent(this, Activity_Patient_Menu.class);
-        startActivity(intent);
-        finish();
-    }*/
 }

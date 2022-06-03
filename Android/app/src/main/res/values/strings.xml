@@ -17,4 +17,6 @@
     <string name="set_doctor">Set Doctor</string>
     <string name="to_menu">To Menu</string>
     <string name="date">Date</string>
+    <string name="no_account_sign_up">No account? Sign up</string>
+    <string name="have_account_sign_in">Have account? Sign in</string>
 </resources>

@@ -7,28 +7,131 @@
     android:layout_height="match_parent"
     tools:context=".activities.Activity_Sign_In">
 
-    <EditText
-        android:id="@+id/signIn_EDT_email"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:hint="@string/email" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/signIn_EDT_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/signIn_EDT_email"
-        android:inputType="textPassword"
-        android:layout_marginTop="80dp"
-        android:hint="@string/password" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="273dp"
+            android:background="@drawable/blue_bg">
 
-    <Button
-        android:id="@+id/signIn_BTN_signIn"
-        android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:textSize="36sp"
+                android:textColor="@color/white"
+                android:text="@string/app_name" />
+
+            <ImageView
+                android:layout_width="77dp"
+                android:layout_height="77dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="93dp"
+                android:src="@drawable/ic_logo_foreground" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="36.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_border_rounded_cornwe">
+
+        <ImageView
+            android:id="@+id/signIn_IMG_emailIcon"
+            android:layout_width="14.7dp"
+            android:layout_height="10.3dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:src="@drawable/email" />
+
+        <EditText
+            android:id="@+id/signIn_EDT_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/signIn_IMG_emailIcon"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:paddingLeft="17dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12sp"
+            android:hint="@string/email" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_border_rounded_cornwe">
+
+            <ImageView
+                android:id="@+id/signIn_IMG_passwordIcon"
+                android:layout_width="14.7dp"
+                android:layout_height="10.3dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17dp"
+                android:src="@drawable/password" />
+
+            <EditText
+                android:id="@+id/signIn_EDT_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/signIn_IMG_passwordIcon"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:paddingLeft="17dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="12sp"
+                android:hint="@string/email" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/signIn_LBL_signIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="18.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_fill__rounded_color"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:text="@string/sign_in" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/signIn_LBL_noAccountSignup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signIn_EDT_password"
-        android:layout_marginTop="80dp"
-        android:text="@string/sign_in" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24dp"
+        android:textColor="#1566E0"
+        android:textSize="12sp"
+        android:text="@string/no_account_sign_up" />
 
 </RelativeLayout>

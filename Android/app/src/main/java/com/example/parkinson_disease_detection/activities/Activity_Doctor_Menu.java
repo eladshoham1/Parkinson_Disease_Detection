@@ -70,7 +70,7 @@ public class Activity_Doctor_Menu extends AppCompatActivity {
     }
 
     private void initViews() {
-        doctor_menu_LBL_doctorName.setText("Welcome " + doctor.getFullName());
+        doctor_menu_LBL_doctorName.setText("Welcome, " + doctor.getFullName());
         Bundle bundle = new Bundle();
         bundle.putString(Constants.DOCTOR, new Gson().toJson(doctor));
         fragment_doctor_results = new Fragment_Doctor_Results();
