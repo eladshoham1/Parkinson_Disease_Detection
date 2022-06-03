@@ -46,13 +46,11 @@ public class Activity_Patient_Menu extends AppCompatActivity {
     private void initViews() {
         String patientString = getIntent().getStringExtra(Constants.PATIENT);
         String uid = getIntent().getStringExtra(Constants.USER_ID);
-        if(patientString != null && !patientString.isEmpty()){
+        if (patientString != null && !patientString.isEmpty()) {
             patient = new Gson().fromJson(patientString, Patient.class);
             replaceFragment(R.id.menu_patient_LBL_profile);
-
-        }else if (uid != null && !uid.isEmpty()){
+        } else if (uid != null && !uid.isEmpty()){
             getPatientFromDB(uid);
-
         }
 
         menu_patient_NVG_bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
