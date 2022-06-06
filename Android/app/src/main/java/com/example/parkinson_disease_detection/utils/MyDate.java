@@ -5,10 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 public class MyDate {
-    public static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
-
     public static String makeDateString(long date) {
-        DateFormat timeFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat timeFormat = new SimpleDateFormat(Constants.DATE_FORMAT);
         timeFormat.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
         return timeFormat.format(date);
     }

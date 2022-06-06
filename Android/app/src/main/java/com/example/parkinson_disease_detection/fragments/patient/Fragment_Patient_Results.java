@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson_disease_detection.R;
 import com.example.parkinson_disease_detection.activities.Activity_Result;
-import com.example.parkinson_disease_detection.adapter.Adapter_Patient;
 import com.example.parkinson_disease_detection.adapter.Adapter_Result;
 import com.example.parkinson_disease_detection.models.Patient;
 import com.example.parkinson_disease_detection.models.Result;

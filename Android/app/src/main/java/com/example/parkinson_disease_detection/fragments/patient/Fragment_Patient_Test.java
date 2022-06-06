@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.android.volley.Request;
@@ -27,7 +26,6 @@ import com.example.parkinson_disease_detection.R;
 import com.example.parkinson_disease_detection.activities.Activity_Result;
 import com.example.parkinson_disease_detection.models.DrawingView;
 import com.example.parkinson_disease_detection.models.Patient;
-import com.example.parkinson_disease_detection.models.Point;
 import com.example.parkinson_disease_detection.models.Result;
 import com.example.parkinson_disease_detection.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,16 +38,12 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fragment_Patient_Test extends Fragment {
-    private ImageView test_IMG_spiral;
     private DrawingView test_DRW_spiral;
     private Button test_BTN_classify;
     private ProgressBar test_PRB_loading;
 
-    private List<Point> points;
     private Patient patient;
 
     @Override
@@ -63,20 +57,13 @@ public class Fragment_Patient_Test extends Fragment {
     }
 
     private void findViews(View view) {
-        test_IMG_spiral = view.findViewById(R.id.test_IMG_spiral);
         test_DRW_spiral = view.findViewById(R.id.test_DRW_spiral);
         test_BTN_classify = view.findViewById(R.id.test_BTN_classify);
         test_PRB_loading = view.findViewById(R.id.test_PRB_loading);
     }
 
     private void initViews() {
-        points = new ArrayList<>();
         test_BTN_classify.setOnClickListener(v -> classify());
-        test_DRW_spiral.setOnTouchListener((v, event) -> {
-            Point point = new Point(event.getX(), event.getY(), System.currentTimeMillis());
-            points.add(point);
-            return false;
-        });
     }
 
     private void setPatient() {
@@ -102,7 +89,7 @@ public class Fragment_Patient_Test extends Fragment {
         String id = secondParts[1];
         String name = thirdParts[0].substring(0, thirdParts[0].length() - 1);
         String token = fourthParts[1];
-        return "http://10.0.2.2:5000/predict/?id=" + id + "&name=" + name + "&token=" + token;
+        return Constants.CONVOLUTIONAL_NEURAL_NETWORK_URL + "/?id=" + id + "&name=" + name + "&token=" + token;
     }
 
     private void classify() {
